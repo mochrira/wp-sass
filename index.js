@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var fs = require('fs');
+var clean = require('gulp-clean');
 
 exports.setup = function(srcDir, outDir) {
 
