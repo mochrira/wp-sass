@@ -1,0 +1,10 @@
+{
+    "name": "wp-sass",
+    "version": "0.1.0",
+    "main": "index.js",
+    "dependencies": {
+        "gulp": "^4.0.2",
+        "gulp-sass": "^4.1.0",
+        "node-sass": "^4.14.1"
+    }
+}
