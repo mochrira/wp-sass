@@ -26,4 +26,55 @@ exports.setup = function(srcDir, outDir) {
 
     gulp.task('build', gulp.series(['clean', 'source', 'sass']));
 
+    gulp.task('watcher', function () {
+        var fileWatcher = gulp.watch(srcDir + '/**/!(*.map|*.scss)', { events: 'all' });
+        fileWatcher.on('error', function(e) {
+            console.log('Error :' + e);
+            console.log('Watcher Restarted');
+            this.emit('end');
+        });
+    
+        fileWatcher.on('all', function (action, file) {
+            var filePath = path.relative(path.resolve(srcDir + '/'), path.resolve(file));
+            var distPath = path.resolve(path.resolve(config.distPath), filePath);
+    
+            if(action == 'unlinkDir') {
+                fs.exists(distPath, function (exists) {
+                    if(exists) {
+                        unlinkDir(distPath);
+                        console.log('Directory Removed: ' + filePath + ' -> ' + distPath);
+                    }
+                })
+            }
+    
+            if(action == 'change' || action == 'add') {
+                var copyFile = function () {
+                    fs.copyFile(srcDir + '/' + filePath, distPath, function(e) {
+                        console.log((action == 'change' ? 'Changed' : 'Created') + ' : ' + filePath + ' -> ' + distPath);
+                    });
+                }
+                fs.exists(path.dirname(distPath), function (exists) {
+                    if(!exists) {
+                        fs.mkdir(path.dirname(distPath), {recursive : true}, function () {
+                            copyFile();
+                        });
+                    }else{
+                        copyFile();
+                    }
+                })
+            }
+    
+            if(action == 'unlink') {
+                fs.unlink(distPath, function(e) {
+                    console.log('Deleted : ' + filePath + ' -> ' + distPath);
+                });
+            }
+        });
+    
+    
+        gulp.watch(srcDir + '/**/*.scss', { events: 'all' }, gulp.series(['sass']));
+    });
+
+    gulp.task('watch', gulp.series(['build', 'watcher']));
+
 }
