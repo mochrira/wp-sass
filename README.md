@@ -5,6 +5,7 @@ WP Sass adalah sebuah modul node.js yang digunakan untuk mempercepat proses peng
 ## Memulai
 
 - Instalasi
+
 ```
 npm install git+https://repository.wajek.id/mochrira/wp-sass.git
 ```
