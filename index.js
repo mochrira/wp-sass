@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var fs = require('fs');
+var path = require('path');
 var clean = require('gulp-clean');
 
 exports.setup = function(srcDir, outDir) {
@@ -36,7 +37,7 @@ exports.setup = function(srcDir, outDir) {
     
         fileWatcher.on('all', function (action, file) {
             var filePath = path.relative(path.resolve(srcDir + '/'), path.resolve(file));
-            var distPath = path.resolve(path.resolve(config.distPath), filePath);
+            var distPath = path.resolve(path.resolve(outDir), filePath);
     
             if(action == 'unlinkDir') {
                 fs.exists(distPath, function (exists) {
