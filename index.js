@@ -34,12 +34,12 @@ exports.setup = function(config) {
     });
 
     gulp.task('source', function () {
-        return gulp.src(styles)
+        return gulp.src(srcDir + '/**/*.!(map|scss)')
             .pipe(gulp.dest(outDir));
     });    
 
     gulp.task('sass', function () {
-        return gulp.src(srcDir + '/**/*.scss')
+        return gulp.src(styles)
             .pipe(sass({
                 includePaths: ['node_modules']
             }).on('error', sass.logError))
