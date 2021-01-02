@@ -19,7 +19,11 @@ function unlinkDir(dirPath) {
     return;
 };
 
-exports.setup = function(srcDir, outDir) {
+exports.setup = function(config) {
+
+    let styles = config.styles ?? [];
+    let srcDir = config.srcDir ?? './src';
+    let outDir = config.outDir ?? './dist';
 
     gulp.task('clean', function () {
         var isExists = fs.existsSync(outDir);
@@ -30,7 +34,7 @@ exports.setup = function(srcDir, outDir) {
     });
 
     gulp.task('source', function () {
-        return gulp.src(srcDir + '/**/*.!(map|scss)')
+        return gulp.src(styles)
             .pipe(gulp.dest(outDir));
     });    
 
