@@ -1,6 +1,6 @@
 {
     "name": "wp-sass",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "main": "index.js",
     "dependencies": {
         "gulp": "^4.0.2",
