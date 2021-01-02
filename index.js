@@ -94,7 +94,7 @@ exports.setup = function(config) {
         });
     
     
-        gulp.watch(srcDir + '/**/*.scss', { events: 'all', usePolling: true, interval: 2000 }, gulp.series(['sass']));
+        gulp.watch(styles, { events: 'all', usePolling: true, interval: 2000 }, gulp.series(['sass']));
     });
 
     gulp.task('watch', gulp.series(['build', 'watcher']));
