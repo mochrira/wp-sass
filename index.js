@@ -49,7 +49,7 @@ exports.setup = function(config) {
     gulp.task('build', gulp.series(['clean', 'source', 'sass']));
 
     gulp.task('watcher', function () {
-        var fileWatcher = gulp.watch(srcDir + '/**/!(*.map|*.scss)', { events: 'all', usePolling: true, interval: 2000 });
+        var fileWatcher = gulp.watch(srcDir + '/**/!(*.map|*.scss)', { events: 'all'});
         fileWatcher.on('error', function(e) {
             console.log('Error :' + e);
             console.log('Watcher Restarted');
@@ -94,7 +94,7 @@ exports.setup = function(config) {
         });
     
     
-        gulp.watch(styles, { events: 'all', usePolling: true, interval: 2000 }, gulp.series(['sass']));
+        gulp.watch(styles, { events: 'all' }, gulp.series(['sass']));
     });
 
     gulp.task('watch', gulp.series(['build', 'watcher']));
