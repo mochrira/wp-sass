@@ -22,6 +22,7 @@ function unlinkDir(dirPath) {
 exports.setup = function(config) {
 
     let styles = config.styles ?? [];
+    let styleIncludePaths = config.styleIncludePaths ?? [];
     let srcDir = config.srcDir ?? './src';
     let outDir = config.outDir ?? './dist';
 
@@ -41,7 +42,7 @@ exports.setup = function(config) {
     gulp.task('sass', function () {
         return gulp.src(styles)
             .pipe(sass({
-                includePaths: ['node_modules']
+                includePaths: styleIncludePaths
             }).on('error', sass.logError))
             .pipe(gulp.dest(outDir));
     });
@@ -94,7 +95,7 @@ exports.setup = function(config) {
         });
     
     
-        gulp.watch(styles, { events: 'all' }, gulp.series(['sass']));
+        gulp.watch(styles, { events: 'all', includePaths: styleIncludePaths }, gulp.series(['sass']));
     });
 
     gulp.task('watch', gulp.series(['build', 'watcher']));
