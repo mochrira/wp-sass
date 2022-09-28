@@ -40,7 +40,8 @@ exports.setup = function(config) {
 
     gulp.task('sass', function () {
         return gulp.src(styles)
-            .pipe(sass().on('error', sass.logError))
+            .pipe(sass({outputStyle: 'compressed'})
+            .on('error', sass.logError))
             .pipe(gulp.dest(outDir));
     });
 
