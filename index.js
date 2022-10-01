@@ -41,7 +41,7 @@ exports.setup = function(config) {
 
     gulp.task('sass', function () {
         return gulp.src(styles)
-            .pipe(sass({outputStyle: 'compressed'}, replace("*/", "*/\n\n"))
+            .pipe(sass({outputStyle: 'compressed'}, replace("*/", "*/\n\n"), replace("/*!", "/*"))
             .on('error', sass.logError))
             .pipe(gulp.dest(outDir));
     });
