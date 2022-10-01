@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var fs = require('fs');
 var path = require('path');
 var clean = require('gulp-clean');
+var replace = require('gulp-replace');
 
 function unlinkDir(dirPath) {
     try { var files = fs.readdirSync(dirPath); }
@@ -36,11 +37,11 @@ exports.setup = function(config) {
     gulp.task('source', function () {
         return gulp.src(srcDir + '/**/*.!(map|scss)')
             .pipe(gulp.dest(outDir));
-    });    
+    });
 
     gulp.task('sass', function () {
         return gulp.src(styles)
-            .pipe(sass({outputStyle: 'compressed'})
+            .pipe(sass({outputStyle: 'compressed'}, replace("*/", "*/\n\n"))
             .on('error', sass.logError))
             .pipe(gulp.dest(outDir));
     });
